@@ -5,6 +5,9 @@
 
 # Arma 3 alternative launcher
 
+1. Helpfull links
+[steam cli](https://developer.valvesoftware.com/wiki/Command_Line_Options)
+
 ## Install
 
 First, clone the repo via git:
