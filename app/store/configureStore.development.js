@@ -3,12 +3,12 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware, push } from 'react-router-redux';
-import rootReducer from '../reducers';
+import rootReducer from '../reducers.js';
 
-import * as exampleActions from '../actions/example';
+import * as mainActions from '../containers/Main/actions.js';
 
 const actionCreators = {
-  ...exampleActions,
+  ...mainActions,
   push,
 };
 
@@ -34,8 +34,8 @@ export default function configureStore(initialState) {
   }
 
   if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+    module.hot.accept('../reducers.js', () =>
+      store.replaceReducer(require('../reducers.js')) // eslint-disable-line global-require
     );
   }
 
