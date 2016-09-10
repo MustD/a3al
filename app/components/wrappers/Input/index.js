@@ -2,21 +2,45 @@
  * Created by md on 10.09.16.
  */
 import React, { Component } from 'react';
-import child_process from 'child_process';
+
+const styles = {
+  item: {
+    display: 'block',
+    margin: '5px 0',
+  }
+};
 
 export default class Input extends Component {
 
-  run(){
-    child_process.execSync('steam -applaunch 107410');
+  static propTypes = {
+    label: React.PropTypes.string,
+    type: React.PropTypes.string,
+    data: React.PropTypes.any,
+  };
+
+  static type = {
+    string: 'string',
+    text: 'text',
+  };
+
+  getInput(type, data){
+    switch (type){
+      case Input.type.string:
+        return (<input type="text" value={data}/>);
+      case Input.type.text:
+        return (<textarea value={data} />);
+      default:
+        return (<input type="text" value={data}/>);
+    }
   }
 
   render() {
     return (
-      <div>
-        <div>
-          ARMA3 Launcher
-        </div>
-        <button onClick={() => this.run()} >Run ARMA</button>
+      <div style={styles.item}>
+        <label>
+          {this.props.label}
+          {this.getInput(this.props.type, this.props.data)}
+        </label>
       </div>
     );
   }

@@ -2,22 +2,28 @@
  * Created by md on 10.09.16.
  */
 import {
-  INCREMENT_COUNTER,
-  DECREMENT_COUNTER
+  SET_STATE,
+  ADD_MOD,
 } from './actions';
 import { fromJS } from 'immutable';
 
 const initialState = fromJS({
-  counter: 0,
+  mods: [],
 });
 
 export default function counter(state = initialState, action) {
   switch (action.type) {
-    case INCREMENT_COUNTER:
-      return state.update('counter', (val) => val + 1);
+    case SET_STATE:
+      return fromJS(action.data);
 
-    case DECREMENT_COUNTER:
-      return state.update('counter', (val) => val - 1);
+    case ADD_MOD:
+      return state.update('mods', (list) => list.push(
+        {
+          id: action.id,
+          name: `new set ${list.size}`,
+          command: '',
+        }
+      ));
 
     default:
       return state;

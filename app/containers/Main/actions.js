@@ -3,10 +3,20 @@
  */
 export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
+export const SET_STATE = 'main/set_state';
+export const ADD_MOD = 'main/add_mod';
 
-export function increment() {
+export function setState(data) {
   return {
-    type: INCREMENT_COUNTER
+    type: SET_STATE,
+    data,
+  }
+}
+
+export function addMod(id) {
+  return {
+    type: ADD_MOD,
+    id,
   };
 }
 
