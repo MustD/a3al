@@ -7,6 +7,7 @@ const styles = {
   item: {
     display: 'block',
     margin: '5px 0',
+    wordWrap: 'break-word',
   }
 };
 
@@ -15,7 +16,8 @@ export default class Input extends Component {
   static propTypes = {
     label: React.PropTypes.string,
     type: React.PropTypes.string,
-    data: React.PropTypes.any,
+    data: React.PropTypes.string,
+    update: React.PropTypes.func,
   };
 
   static type = {
@@ -26,9 +28,9 @@ export default class Input extends Component {
   getInput(type, data){
     switch (type){
       case Input.type.string:
-        return (<input type="text" value={data}/>);
+        return (<input type="text" value={data} onChange={(event) => this.props.update(event.target.value)} />);
       case Input.type.text:
-        return (<textarea value={data} />);
+        return (<textarea value={data} onChange={(event) => this.props.update(event.target.value)} />);
       default:
         return (<input type="text" value={data}/>);
     }

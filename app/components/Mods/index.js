@@ -16,17 +16,12 @@ const styles = {
 export default class Mods extends Component {
 
   static propTypes = {
-    list: React.PropTypes.array,
+    list: React.PropTypes.object,
+    activate: React.PropTypes.func,
+    active: React.PropTypes.string,
     addMod: React.PropTypes.func,
+    updateMod: React.PropTypes.func,
   };
-
-  constructor(props){
-    super(props);
-    this.state = {
-      active: false,
-    }
-  }
-
 
   render() {
     return (
@@ -34,10 +29,13 @@ export default class Mods extends Component {
         <div>Mod List</div>
         <ModList
           list={this.props.list}
-          activate={(id) => this.setState({active: id})}
+          activate={(id) => this.props.activate(id)}
           addMod={this.props.addMod}
         />
-        <ModEdit data={this.props.list.find(item => item.id === this.state.active)}/>
+        <ModEdit
+          data={this.props.list.get(this.props.active)}
+          update={this.props.updateMod}
+        />
       </div>
     );
   }

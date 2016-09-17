@@ -19,16 +19,21 @@ export default class ModEdit extends Component {
 
   static propTypes = {
     data: React.PropTypes.object,
+    update: React.PropTypes.func,
   };
 
+  update(key, value) {
+    this.props.update(this.props.data.get('id'), this.props.data.set(key, value));
+  }
 
   render() {
-    const name = this.props.data ? this.props.data.name : '';
-    const command = this.props.data ? this.props.data.command : '';
+    const name = this.props.data ? this.props.data.get('name') : '';
+    const command = this.props.data ? this.props.data.get('command') : '';
     return (
       <div style={styles.container}>
-        <Input label={'Name'} type={Input.type.string} data={name} />
-        <Input label={'Command'} type={Input.type.text} data={command} />
+        <Input label={'Name'} type={Input.type.string} data={name} update={(value) => this.update('name', value)}/>
+        <Input label={'Command'} type={Input.type.text} data={command}
+               update={(value) => this.update('command', value)}/>
         <button>delete</button>
       </div>
     );

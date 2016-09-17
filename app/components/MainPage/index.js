@@ -23,6 +23,8 @@ export default class MainPage extends Component {
     save: React.PropTypes.func,
     load: React.PropTypes.func,
     run: React.PropTypes.func,
+    runMod: React.PropTypes.func,
+    command: React.PropTypes.string,
   };
 
   render() {
@@ -32,12 +34,16 @@ export default class MainPage extends Component {
           ARMA3 Launcher
         </div>
         <div style={styles.menu}>
-          <button style={styles.button} onClick={this.props.run}>Run ARMA3</button>
+          <button style={styles.button} onClick={this.props.run}>Run vanilla ARMA3</button>
           <button style={styles.button} onClick={this.props.save}>save</button>
           <button style={styles.button} onClick={this.props.load}>load</button>
         </div>
         <div style={styles.content}>
           {this.props.children}
+        </div>
+        <div style={styles.menu}>
+          <button style={styles.button} onClick={this.props.runMod}>Run modded ARMA3</button>
+          <div>{this.props.command}</div>
         </div>
       </div>
     );

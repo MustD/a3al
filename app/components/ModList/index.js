@@ -25,7 +25,7 @@ const styles = {
 export default class ModList extends Component {
 
   static propTypes = {
-    list: React.PropTypes.array,
+    list: React.PropTypes.object,
     activate: React.PropTypes.func,
     addMod: React.PropTypes.func,
   };
@@ -38,10 +38,10 @@ export default class ModList extends Component {
   render() {
     return (
       <div style={styles.container} >
-        {this.props.list.map((item, key) => (
-          <div key={key} style={styles.item} onClick={() => this.props.activate(item.id)}>{item.name}</div>
-        ))}
         <div style={styles.item} onClick={() => this.props.addMod(this.generateId())}>ADD +</div>
+        {this.props.list.toList().map((item, key) => (
+          <div key={`set${key}`} style={styles.item} onClick={() => this.props.activate(item.get('id'))}>{item.get('name')}</div>
+        ))}
       </div>
     );
   }
