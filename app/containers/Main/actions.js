@@ -5,6 +5,7 @@ export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 export const SET_STATE = 'main/set_state';
 export const ADD_MOD = 'main/add_mod';
+export const REMOVE_MOD = 'main/remove_mod';
 export const ACTIVATE = 'main/activate';
 export const UPDATE_MOD = 'main/update_mod';
 
@@ -20,6 +21,13 @@ export function addMod(id) {
     type: ADD_MOD,
     id,
   };
+}
+
+export function removeMod(id) {
+  return {
+    type: REMOVE_MOD,
+    id,
+  }
 }
 
 export function activate(id) {

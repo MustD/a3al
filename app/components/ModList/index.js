@@ -15,6 +15,10 @@ const styles = {
   item: {
     margin: '5px 0',
     cursor: 'pointer',
+    width: '120px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   }
 };
 
@@ -36,7 +40,14 @@ export default class ModList extends Component {
         <div>Mod List</div>
         <button style={styles.item} onClick={() => this.props.addMod(this.generateId())}>ADD SET</button>
         {this.props.list.toList().map((item, key) => (
-          <button key={`set${key}`} style={styles.item} onClick={() => this.props.activate(item.get('id'))}>{item.get('name')}</button>
+          <button
+            key={`set${key}`}
+            style={styles.item}
+            title={item.get('name')}
+            onClick={() => this.props.activate(item.get('id'))}
+          >
+            {item.get('name') || 'unnamed'}
+          </button>
         ))}
       </div>
     );

@@ -20,6 +20,7 @@ export default class ModEdit extends Component {
 
   static propTypes = {
     data: React.PropTypes.object,
+    remove: React.PropTypes.func,
     update: React.PropTypes.func,
   };
 
@@ -32,7 +33,14 @@ export default class ModEdit extends Component {
     const command = this.props.data ? this.props.data.get('command') : '';
     if (this.props.data === undefined) {
       return (
-        <div style={styles.container}>Add new set or choose existing one</div>
+        <div style={styles.container}>
+          <span>Add new set or choose existing one</span><br/>
+          <hr/>
+          <span>Example of command:</span><br/>
+          <code>-mod="@CBA_A3\\;@lsd_nvg\\;"</code>
+          <hr/>
+          <span>Make sure that steam launch properties are empty</span>
+        </div>
       )
     }
     return (
@@ -40,7 +48,7 @@ export default class ModEdit extends Component {
         <Input label={'Name'} type={Input.type.string} data={name} update={(value) => this.update('name', value)}/>
         <Input label={'Command'} type={Input.type.text} data={command}
                update={(value) => this.update('command', value)}/>
-        <button>delete</button>
+        <button onClick={() => this.props.remove(this.props.data.get('id'))}>delete</button>
       </div>
     );
   }

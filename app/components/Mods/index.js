@@ -20,6 +20,7 @@ export default class Mods extends Component {
     activate: React.PropTypes.func,
     active: React.PropTypes.string,
     addMod: React.PropTypes.func,
+    removeMod: React.PropTypes.func,
     updateMod: React.PropTypes.func,
   };
 
@@ -33,6 +34,7 @@ export default class Mods extends Component {
         />
         <ModEdit
           data={this.props.list.get(this.props.active)}
+          remove={this.props.removeMod}
           update={this.props.updateMod}
         />
       </div>

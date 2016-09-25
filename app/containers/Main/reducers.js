@@ -4,6 +4,7 @@
 import {
   SET_STATE,
   ADD_MOD,
+  REMOVE_MOD,
   ACTIVATE,
   UPDATE_MOD,
 } from './actions';
@@ -32,6 +33,9 @@ export default function counter(state = initialState, action) {
           command: '',
         })
       ));
+
+    case REMOVE_MOD:
+      return state.removeIn(['mods', action.id]);
 
     case UPDATE_MOD:
       return state.setIn(['mods', action.id], action.data);
