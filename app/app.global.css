@@ -51,9 +51,11 @@ button:hover {
 }
 
 input[type="text"] {
+  border-radius: 3px;
   padding: 5px;
 }
 
 textarea {
+  border-radius: 3px;
   padding: 5px;
 }
