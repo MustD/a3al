@@ -26,7 +26,6 @@ export default class Mods extends Component {
   render() {
     return (
       <div style={styles.container} >
-        <div>Mod List</div>
         <ModList
           list={this.props.list}
           activate={(id) => this.props.activate(id)}

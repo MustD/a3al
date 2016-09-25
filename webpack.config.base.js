@@ -9,7 +9,14 @@ export default {
     }, {
       test: /\.json$/,
       loader: 'json-loader'
-    }]
+    }, {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'file?hash=sha512&digest=hex&name=[hash].[ext]',
+        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+      ]
+    }
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -20,9 +27,7 @@ export default {
     extensions: ['', '.js', '.jsx', '.json'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
-  plugins: [
-
-  ],
+  plugins: [],
   externals: [
     // put your node 3rd party libraries which can't be built with webpack here
     // (mysql, mongodb, and so on..)

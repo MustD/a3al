@@ -12,6 +12,7 @@ const styles = {
     border: '1px solid #FFF',
     display: 'inline-block',
     verticalAlign: 'top',
+    width: 'calc(100% - 164px)',
   }
 };
 
@@ -29,6 +30,11 @@ export default class ModEdit extends Component {
   render() {
     const name = this.props.data ? this.props.data.get('name') : '';
     const command = this.props.data ? this.props.data.get('command') : '';
+    if (this.props.data === undefined) {
+      return (
+        <div style={styles.container}>Add new set or choose existing one</div>
+      )
+    }
     return (
       <div style={styles.container}>
         <Input label={'Name'} type={Input.type.string} data={name} update={(value) => this.update('name', value)}/>

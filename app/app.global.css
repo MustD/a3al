@@ -2,7 +2,8 @@ body {
   position: relative;
   color: white;
   height: 100vh;
-  background-color: #242424;
+  background: url("./static/background.png") 100% 100% no-repeat #242424;
+  background-size: cover;
   font-family: Arial, Helvetica, Helvetica Neue;
   overflow-y: hidden;
 }
@@ -33,4 +34,26 @@ a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
+}
+
+button {
+  padding: 5px;
+  min-width: 120px;
+  border-radius: 5px;
+  background-color: rgba(100, 100, 100, 0.5);
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(150, 150, 150, 0.8);
+}
+
+input[type="text"] {
+  padding: 5px;
+}
+
+textarea {
+  padding: 5px;
 }

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import child_process from 'child_process';
 
 const styles = {
+  container: {
+    background: 'rgba(80, 80, 80, 0.9)',
+    padding: '10px',
+    borderRadius: '5px',
+  },
   header: {
     margin: '5px',
   },
@@ -14,6 +18,11 @@ const styles = {
   content: {
     margin: '5px',
     padding: '5px',
+  },
+  command: {
+    display: 'block',
+    width: '100%',
+    wordWrap: 'break-word',
   }
 };
 
@@ -29,7 +38,7 @@ export default class MainPage extends Component {
 
   render() {
     return (
-      <div>
+      <div style={styles.container}>
         <div style={styles.header}>
           ARMA3 Launcher
         </div>
@@ -43,7 +52,7 @@ export default class MainPage extends Component {
         </div>
         <div style={styles.menu}>
           <button style={styles.button} onClick={this.props.runMod}>Run modded ARMA3</button>
-          <div>{this.props.command}</div>
+          <code style={styles.command}>{this.props.command}</code>
         </div>
       </div>
     );

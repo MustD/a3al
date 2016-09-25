@@ -4,9 +4,14 @@
 import React, { Component } from 'react';
 
 const styles = {
-  item: {
+  container: {
     display: 'block',
     margin: '5px 0',
+  },
+  textarea: {
+    width: 'calc(100% - 13px)',
+    minHeight: '150px',
+    resize: 'vertical',
     wordWrap: 'break-word',
   }
 };
@@ -30,7 +35,7 @@ export default class Input extends Component {
       case Input.type.string:
         return (<input type="text" value={data} onChange={(event) => this.props.update(event.target.value)} />);
       case Input.type.text:
-        return (<textarea value={data} onChange={(event) => this.props.update(event.target.value)} />);
+        return (<textarea style={styles.textarea} value={data} onChange={(event) => this.props.update(event.target.value)} />);
       default:
         return (<input type="text" value={data}/>);
     }
@@ -38,11 +43,11 @@ export default class Input extends Component {
 
   render() {
     return (
-      <div style={styles.item}>
+      <div style={styles.container}>
         <label>
           {this.props.label}
+        </label><br/>
           {this.getInput(this.props.type, this.props.data)}
-        </label>
       </div>
     );
   }

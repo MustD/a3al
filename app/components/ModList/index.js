@@ -7,18 +7,14 @@ const styles = {
   container: {
     padding: '5px',
     margin: '5px',
-    width: '100px',
+    width: '120px',
     border: '1px solid #FFF',
     display: 'inline-block',
     verticalAlign: 'top',
   },
   item: {
-    width: '100px',
-    display: 'inline-block',
     margin: '5px 0',
     cursor: 'pointer',
-    borderBottom: '1px solid #FFF',
-    textAlign: 'center',
   }
 };
 
@@ -34,13 +30,13 @@ export default class ModList extends Component {
     return Math.random().toString(34).slice(2, 8);
   }
 
-
   render() {
     return (
       <div style={styles.container} >
-        <div style={styles.item} onClick={() => this.props.addMod(this.generateId())}>ADD +</div>
+        <div>Mod List</div>
+        <button style={styles.item} onClick={() => this.props.addMod(this.generateId())}>ADD SET</button>
         {this.props.list.toList().map((item, key) => (
-          <div key={`set${key}`} style={styles.item} onClick={() => this.props.activate(item.get('id'))}>{item.get('name')}</div>
+          <button key={`set${key}`} style={styles.item} onClick={() => this.props.activate(item.get('id'))}>{item.get('name')}</button>
         ))}
       </div>
     );
