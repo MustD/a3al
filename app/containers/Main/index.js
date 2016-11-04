@@ -9,21 +9,36 @@ import * as MainActions from './actions';
 import child_process from 'child_process';
 
 import MainPage from '../../components/MainPage';
+import Nav from '../../components/NavMenu';
 import Sets from '../Sets';
+import Mods from '../Mods';
 
 class Main extends Component {
 
   static propTypes = {
     mainState: React.PropTypes.object,
     setsState: React.PropTypes.object,
+    modsState: React.PropTypes.object,
     setState: React.PropTypes.func,
     activate: React.PropTypes.func,
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      nav: 'sets',
+    }
+  }
+
+  navigate(target) {
+    this.setState({nav: target})
+  }
 
   save() {
     storage.set('a3al_data', {
       main: this.props.mainState.toJS(),
       sets: this.props.setsState.toJS(),
+      mods: this.props.modsState.toJS(),
     });
   }
 
@@ -47,6 +62,15 @@ class Main extends Component {
     return `steam -applaunch 107410 ${command || ''}`;
   }
 
+  getContent(){
+    if(this.state.nav === 'sets'){
+      return (<Sets />);
+    }else if(this.state.nav === 'mods'){
+      return (<Mods />);
+    }
+    return (<Sets />);
+  }
+
   render() {
     return (
       <MainPage
@@ -56,7 +80,8 @@ class Main extends Component {
         load={() => this.load()}
         command={this.getRunString()}
       >
-        <Sets />
+        <Nav active={this.state.nav} navigate={(target) => this.navigate(target)}  />
+        {this.getContent()}
       </MainPage>
     );
   }
@@ -66,6 +91,7 @@ function mapStateToProps(state) {
   return {
     mainState: state.main,
     setsState: state.sets,
+    modsState: state.mods,
   };
 }
 

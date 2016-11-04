@@ -3,31 +3,28 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { app } from 'electron';
-import storage from 'electron-json-storage';
 
 import * as MainActions from './actions';
-import child_process from 'child_process';
-
-import MainPage from '../../components/MainPage';
-import SetManage from '../../components/SetManage';
-
-class ModList extends Component {
+import ModManage from '../../components/ModManage';
+class Mods extends Component {
 
   static propTypes = {
-
+    modsState: React.PropTypes.object,
+    addMod: React.PropTypes.func,
+    removeMod: React.PropTypes.func,
   };
 
 
   render() {
     return (
-     <div></div>
+     <ModManage addMod={this.props.addMod} removeMod={this.props.removeMod} list={this.props.modsState.get('mods')} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    mainState: state.mainReducer,
+    modsState: state.mods,
   };
 }
 
@@ -35,4 +32,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(MainActions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModList);
+export default connect(mapStateToProps, mapDispatchToProps)(Mods);

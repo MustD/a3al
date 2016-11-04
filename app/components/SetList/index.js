@@ -37,7 +37,6 @@ export default class SetList extends Component {
   render() {
     return (
       <div style={styles.container} >
-        <div>Mod sets</div>
         <button style={styles.item} onClick={() => this.props.add(this.generateId())}>ADD SET</button>
         {this.props.list.toList().map((item, key) => (
           <button
