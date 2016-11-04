@@ -58,8 +58,14 @@ class Main extends Component {
 
   getRunString() {
     const active = this.props.setsState.get('active');
-    const command = this.props.setsState.getIn(['sets', active, 'command']);
-    return `steam -applaunch 107410 ${command || ''}`;
+    let command = 'steam -applaunch 107410';
+    if(this.props.setsState.hasIn(['sets', active, 'modList']) && this.props.setsState.getIn(['sets', active, 'modList']).size){
+      command += ' -mod="';
+      this.props.setsState.getIn(['sets', active, 'modList'])
+        .forEach(item => command += `${this.props.modsState.getIn(['mods', item, 'name'])}\\\\;`);
+      command += '"'
+    }
+    return command;
   }
 
   getContent(){

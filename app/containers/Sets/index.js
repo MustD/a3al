@@ -10,6 +10,8 @@ import SetManage from '../../components/SetManage';
 class Sets extends Component {
 
   static propTypes = {
+    setsState: React.PropTypes.object,
+    modsState: React.PropTypes.object,
     activate: React.PropTypes.func,
     addSet: React.PropTypes.func,
     removeSet: React.PropTypes.func,
@@ -20,6 +22,7 @@ class Sets extends Component {
     return (
       <SetManage
         list={this.props.setsState.get('sets')}
+        modList={this.props.modsState.get('mods')}
         active={this.props.setsState.get('active')}
         activate={this.props.activate}
         addSet={this.props.addSet}
@@ -33,6 +36,7 @@ class Sets extends Component {
 function mapStateToProps(state) {
   return {
     setsState: state.sets,
+    modsState: state.mods,
   };
 }
 

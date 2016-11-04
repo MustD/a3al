@@ -17,6 +17,7 @@ export default class SetManage extends Component {
 
   static propTypes = {
     list: React.PropTypes.object,
+    modList: React.PropTypes.object,
     activate: React.PropTypes.func,
     active: React.PropTypes.string,
     addSet: React.PropTypes.func,
@@ -33,6 +34,7 @@ export default class SetManage extends Component {
           add={this.props.addSet}
         />
         <SetEdit
+          modList={this.props.modList}
           data={this.props.list.get(this.props.active)}
           remove={this.props.removeSet}
           update={this.props.updateSet}

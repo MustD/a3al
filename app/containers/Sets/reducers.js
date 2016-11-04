@@ -15,7 +15,7 @@ const initialState = fromJS({
   sets: {},
 });
 
-const modSet = Record({ id: '', name: '', command: '' });
+const modSet = Record({ id: '', name: '', command: '', modList: fromJS([]) });
 
 export default function setReducer(state = initialState, action) {
   switch (action.type) {
@@ -30,7 +30,6 @@ export default function setReducer(state = initialState, action) {
         new modSet({
           id: action.id,
           name: `new set ${map.size + 1}`,
-          command: '',
         })
       ));
 

@@ -17,7 +17,6 @@ const styles = {
   modList: {
     display: 'flex',
     flexWrap: 'wrap',
-    userSelect: 'none',
   },
   item: {
     margin: '5px',
@@ -26,7 +25,6 @@ const styles = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-
   },
 };
 

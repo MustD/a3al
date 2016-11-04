@@ -10,7 +10,7 @@ const styles = {
   },
   textarea: {
     width: 'calc(100% - 13px)',
-    minHeight: '150px',
+    minHeight: '50px',
     resize: 'vertical',
     wordWrap: 'break-word',
   }
@@ -23,6 +23,7 @@ export default class Input extends Component {
     type: React.PropTypes.string,
     data: React.PropTypes.string,
     update: React.PropTypes.func,
+    disabled: React.PropTypes.bool,
   };
 
   static type = {
@@ -33,11 +34,11 @@ export default class Input extends Component {
   getInput(type, data){
     switch (type){
       case Input.type.string:
-        return (<input type="text" value={data} onChange={(event) => this.props.update(event.target.value)} />);
+        return (<input disabled={this.props.disabled} type="text" value={data} onChange={(event) => this.props.update(event.target.value)} />);
       case Input.type.text:
-        return (<textarea style={styles.textarea} value={data} onChange={(event) => this.props.update(event.target.value)} />);
+        return (<textarea disabled={this.props.disabled} style={styles.textarea} value={data} onChange={(event) => this.props.update(event.target.value)} />);
       default:
-        return (<input type="text" value={data}/>);
+        return (<input disabled={this.props.disabled} type="text" value={data}/>);
     }
   }
 
