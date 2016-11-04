@@ -5,8 +5,7 @@
 
 # Arma 3 alternative launcher
 
-1. Usage:
-- go to [releases](https://github.com/MustD/a3al/releases) and follow instructions
+1. Usage: go to [releases](https://github.com/MustD/a3al/releases) and follow instructions
 
 ## Dev Install
 
