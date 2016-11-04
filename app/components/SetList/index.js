@@ -22,12 +22,12 @@ const styles = {
   }
 };
 
-export default class ModList extends Component {
+export default class SetList extends Component {
 
   static propTypes = {
     list: React.PropTypes.object,
     activate: React.PropTypes.func,
-    addMod: React.PropTypes.func,
+    add: React.PropTypes.func,
   };
 
   generateId() {
@@ -37,8 +37,8 @@ export default class ModList extends Component {
   render() {
     return (
       <div style={styles.container} >
-        <div>Mod List</div>
-        <button style={styles.item} onClick={() => this.props.addMod(this.generateId())}>ADD SET</button>
+        <div>Mod sets</div>
+        <button style={styles.item} onClick={() => this.props.add(this.generateId())}>ADD SET</button>
         {this.props.list.toList().map((item, key) => (
           <button
             key={`set${key}`}

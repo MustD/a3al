@@ -2,8 +2,8 @@
  * Created by md on 10.09.16.
  */
 import React, { Component } from 'react';
-import ModList from '../ModList';
-import ModEdit from '../ModEdit';
+import SetList from '../SetList';
+import SetEdit from '../SetEdit';
 
 const styles = {
   container: {
@@ -13,29 +13,29 @@ const styles = {
   }
 };
 
-export default class Mods extends Component {
+export default class SetManage extends Component {
 
   static propTypes = {
     list: React.PropTypes.object,
     activate: React.PropTypes.func,
     active: React.PropTypes.string,
-    addMod: React.PropTypes.func,
-    removeMod: React.PropTypes.func,
-    updateMod: React.PropTypes.func,
+    addSet: React.PropTypes.func,
+    removeSet: React.PropTypes.func,
+    updateSet: React.PropTypes.func,
   };
 
   render() {
     return (
       <div style={styles.container} >
-        <ModList
+        <SetList
           list={this.props.list}
           activate={(id) => this.props.activate(id)}
-          addMod={this.props.addMod}
+          add={this.props.addSet}
         />
-        <ModEdit
+        <SetEdit
           data={this.props.list.get(this.props.active)}
-          remove={this.props.removeMod}
-          update={this.props.updateMod}
+          remove={this.props.removeSet}
+          update={this.props.updateSet}
         />
       </div>
     );

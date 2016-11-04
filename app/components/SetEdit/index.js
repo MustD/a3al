@@ -16,7 +16,7 @@ const styles = {
   }
 };
 
-export default class ModEdit extends Component {
+export default class SetEdit extends Component {
 
   static propTypes = {
     data: React.PropTypes.object,

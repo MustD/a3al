@@ -5,10 +5,13 @@
 
 # Arma 3 alternative launcher
 
+1. Usage 
+go to [releases](https://github.com/MustD/a3al/releases) and follow instructions
+
+## Dev Install
+
 1. Helpfull links
 [steam cli](https://developer.valvesoftware.com/wiki/Command_Line_Options)
-
-## Install
 
 First, clone the repo via git:
 

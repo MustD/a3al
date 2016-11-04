@@ -9,21 +9,22 @@ import * as MainActions from './actions';
 import child_process from 'child_process';
 
 import MainPage from '../../components/MainPage';
-import Mods from '../../components/Mods';
+import Sets from '../Sets';
 
 class Main extends Component {
 
   static propTypes = {
     mainState: React.PropTypes.object,
+    setsState: React.PropTypes.object,
     setState: React.PropTypes.func,
     activate: React.PropTypes.func,
-    addMod: React.PropTypes.func,
-    removeMod: React.PropTypes.func,
-    updateMod: React.PropTypes.func,
   };
 
   save() {
-    storage.set('a3al_data', this.props.mainState.toJS());
+    storage.set('a3al_data', {
+      main: this.props.mainState.toJS(),
+      sets: this.props.setsState.toJS(),
+    });
   }
 
   load() {
@@ -41,8 +42,8 @@ class Main extends Component {
   }
 
   getRunString() {
-    const active = this.props.mainState.get('active');
-    const command = this.props.mainState.getIn(['mods', active, 'command']);
+    const active = this.props.setsState.get('active');
+    const command = this.props.setsState.getIn(['sets', active, 'command']);
     return `steam -applaunch 107410 ${command || ''}`;
   }
 
@@ -55,14 +56,7 @@ class Main extends Component {
         load={() => this.load()}
         command={this.getRunString()}
       >
-        <Mods
-          list={this.props.mainState.get('mods')}
-          active={this.props.mainState.get('active')}
-          activate={this.props.activate}
-          addMod={this.props.addMod}
-          removeMod={this.props.removeMod}
-          updateMod={this.props.updateMod}
-        />
+        <Sets />
       </MainPage>
     );
   }
@@ -70,7 +64,8 @@ class Main extends Component {
 
 function mapStateToProps(state) {
   return {
-    mainState: state.mainReducer,
+    mainState: state.main,
+    setsState: state.sets,
   };
 }
 
