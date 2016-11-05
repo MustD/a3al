@@ -2,6 +2,7 @@
  * Created by md on 10.09.16.
  */
 import React, { Component } from 'react';
+import Paper from 'material-ui/Paper';
 import SetList from '../SetList';
 import SetEdit from '../SetEdit';
 
@@ -9,7 +10,7 @@ const styles = {
   container: {
     padding: '5px',
     color: '#FFF',
-    border: '1px solid #FFF',
+    backgroundColor: 'transparent',
   }
 };
 
@@ -27,7 +28,7 @@ export default class SetManage extends Component {
 
   render() {
     return (
-      <div style={styles.container} >
+      <Paper style={styles.container} zDepth={2} >
         <SetList
           list={this.props.list}
           activate={(id) => this.props.activate(id)}
@@ -39,7 +40,7 @@ export default class SetManage extends Component {
           remove={this.props.removeSet}
           update={this.props.updateSet}
         />
-      </div>
+      </Paper>
     );
   }
 }

@@ -2,20 +2,23 @@
  * Created by md on 10.09.16.
  */
 import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 const styles = {
   container: {
     padding: '5px',
     margin: '5px',
-    width: '120px',
-    border: '1px solid #FFF',
+    width: '212px',
     display: 'inline-block',
     verticalAlign: 'top',
+    border: '1px solid rgba(200, 200, 200, 0.5)',
+    backgroundColor: 'transparent',
   },
   item: {
     margin: '5px 0',
-    cursor: 'pointer',
-    width: '120px',
+    width: '200px',
+    backgroundColor: 'none',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -36,19 +39,19 @@ export default class SetList extends Component {
 
   render() {
     return (
-      <div style={styles.container} >
-        <button style={styles.item} onClick={() => this.props.add(this.generateId())}>ADD SET</button>
+      <Paper style={styles.container} zDepth={4} >
+        <RaisedButton primary label={'ADD SET'} style={styles.item} onMouseUp={() => this.props.add(this.generateId())} />
         {this.props.list.toList().map((item, key) => (
-          <button
+          <RaisedButton
             key={`set${key}`}
             style={styles.item}
             title={item.get('name')}
-            onClick={() => this.props.activate(item.get('id'))}
-          >
-            {item.get('name') || 'unnamed'}
-          </button>
+            onMouseUp={() => this.props.activate(item.get('id'))}
+            label={item.get('name') || 'unnamed'}
+            secondary
+          />
         ))}
-      </div>
+      </Paper>
     );
   }
 }

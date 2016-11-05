@@ -2,18 +2,23 @@
  * Created by md on 10.09.16.
  */
 import React, { Component } from 'react';
-import Input from '../wrappers/Input';
 import { fromJS } from 'immutable';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import Subheader from 'material-ui/Subheader';
+import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
   container: {
     padding: '5px',
     margin: '5px',
     color: '#FFF',
-    border: '1px solid #FFF',
+    border: '1px solid rgba(200, 200, 200, 0.5)',
     display: 'inline-block',
     verticalAlign: 'top',
-    width: 'calc(100% - 164px)',
+    width: 'calc(100% - 232px)',
+    backgroundColor: 'transparent',
   },
   modList: {
     display: 'flex',
@@ -23,12 +28,17 @@ const styles = {
   item: {
     margin: '5px',
     borderBottom: '1px solid #FFF',
-    width: '120px',
+    width: '200px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     cursor: 'pointer',
   },
+  command: {
+    display: 'block',
+    width: '100%',
+    wordWrap: 'break-word',
+  }
 };
 
 export default class SetEdit extends Component {
@@ -68,32 +78,49 @@ export default class SetEdit extends Component {
     const modList = this.props.data ? this.props.data.get('modList') : fromJS([]);
     if (this.props.data === undefined) {
       return (
-        <div style={styles.container}>
+        <Paper style={styles.container} zDepth={4}>
           <span>Add new set or choose existing one</span><br/>
           <hr/>
           <span>Example of command:</span><br/>
           <code>-mod="@CBA_A3\\;@lsd_nvg\\;"</code>
           <hr/>
           <span>Make sure that steam launch properties are empty</span>
-        </div>
+        </Paper>
       )
     }
     return (
-      <div style={styles.container}>
-        <Input label={'Name'} type={Input.type.string} data={name} update={(value) => this.update('name', value)}/>
+      <Paper style={styles.container} zDepth={4}>
+        <TextField
+          style={{margin: '0 5px'}}
+          floatingLabelText="Name"
+          value={name}
+          onChange={(event, value) => this.update('name', value)}
+        />
         <div style={styles.modList}>
+          <Subheader style={{lineHeight: '30px'}}>Please choose mods for this set</Subheader>
           {this.props.modList.toList().map((item, index) => (
             <div onClick={() => this.toggle(item.get('id'))} key={`item${index}`} style={styles.item}>
-              {modList.includes(item.get('id')) ? (<span>✔</span>) : (<span style={{color: "transparent"}}>✔</span>)}
-              <span>{item.get('name')}</span>
+              <Checkbox
+                checked={modList.includes(item.get('id'))}
+                label={item.get('name')}
+                style={styles.checkbox}
+              />
             </div>
           ))}
         </div>
-        <Input label={'Command'} disabled type={Input.type.text} data={command}
-               update={(value) => this.update('command', value)}/>
-
-        <button onClick={() => this.props.remove(this.props.data.get('id'))}>delete</button>
-      </div>
+        <div>
+          <Subheader style={{lineHeight: '30px'}}>Launch command preview</Subheader>
+          <code style={styles.command}>{command}</code>
+        </div>
+        <div style={{textAlign: 'right'}}>
+          <RaisedButton
+            primary
+            label={'delete'}
+            style={{backgroundColor: 'none', margin: '5px'}}
+            onMouseUp={() => this.props.remove(this.props.data.get('id'))}
+          />
+        </div>
+      </Paper>
     );
   }
 }
