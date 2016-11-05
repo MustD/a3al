@@ -13,6 +13,18 @@ import Nav from '../../components/NavMenu';
 import Sets from '../Sets';
 import Mods from '../Mods';
 
+import {Tabs, Tab} from 'material-ui/Tabs';
+import Slider from 'material-ui/Slider';
+
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
+
 class Main extends Component {
 
   static propTypes = {
@@ -22,17 +34,6 @@ class Main extends Component {
     setState: React.PropTypes.func,
     activate: React.PropTypes.func,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      nav: 'sets',
-    }
-  }
-
-  navigate(target) {
-    this.setState({nav: target})
-  }
 
   save() {
     storage.set('a3al_data', {
@@ -68,15 +69,6 @@ class Main extends Component {
     return command;
   }
 
-  getContent(){
-    if(this.state.nav === 'sets'){
-      return (<Sets />);
-    }else if(this.state.nav === 'mods'){
-      return (<Mods />);
-    }
-    return (<Sets />);
-  }
-
   render() {
     return (
       <MainPage
@@ -86,8 +78,14 @@ class Main extends Component {
         load={() => this.load()}
         command={this.getRunString()}
       >
-        <Nav active={this.state.nav} navigate={(target) => this.navigate(target)}  />
-        {this.getContent()}
+        <Tabs>
+          <Tab label="Mod sets" >
+            <Sets />
+          </Tab>
+          <Tab label="Mod pool" >
+            <Mods />
+          </Tab>
+        </Tabs>
       </MainPage>
     );
   }

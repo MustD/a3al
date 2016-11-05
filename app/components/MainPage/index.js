@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import AppBar from 'material-ui/AppBar';
 
 const styles = {
   container: {
-    background: 'rgba(80, 80, 80, 0.9)',
+    position: 'relative',
+    background: 'rgba(100, 100, 100, 0.8)',
     padding: '10px',
     borderRadius: '5px',
   },
   header: {
-    margin: '5px',
+    backgroundColor: 'none',
+    padding: '5px',
   },
   menu: {
     margin: '5px',
   },
   button: {
-    margin: '5px',
+    margin: '5px 10px 5px 0',
+    backgroundColor: 'none',
+  },
+  btnLabel: {
+    padding: '0 10px',
   },
   content: {
-    margin: '5px',
-    padding: '5px',
+    margin: '0',
   },
   command: {
     display: 'block',
@@ -39,19 +46,43 @@ export default class MainPage extends Component {
   render() {
     return (
       <div style={styles.container}>
-        <div style={styles.header}>
-          ARMA3 Launcher
-        </div>
+        <AppBar
+          style={styles.header}
+          title="ARMA3 Launcher"
+          showMenuIconButton={false}
+        />
         <div style={styles.menu}>
-          <button style={styles.button} onClick={this.props.run}>Run vanilla ARMA3</button>
-          <button style={styles.button} onClick={this.props.save}>save</button>
-          <button style={styles.button} onClick={this.props.load}>load</button>
+          <RaisedButton
+            label={'Run vanilla ARMA3'}
+            style={styles.button}
+            labelStyle={styles.btnLabel}
+            onMouseUp={this.props.run}
+            primary={true}
+          />
+          <RaisedButton
+            label={'save'}
+            style={styles.button}
+            onMouseUp={this.props.save}
+            secondary={true}
+          />
+          <RaisedButton
+            label={'load'}
+            style={styles.button}
+            onMouseUp={this.props.load}
+            secondary={true}
+          />
         </div>
         <div style={styles.content}>
           {this.props.children}
         </div>
         <div style={styles.menu}>
-          <button style={styles.button} onClick={this.props.runMod}>Run modded ARMA3</button>
+          <RaisedButton
+            label={'Run modded ARMA3'}
+            style={styles.button}
+            labelStyle={styles.btnLabel}
+            onMouseUp={this.props.runMod}
+            primary={true}
+          />
           <code style={styles.command}>{this.props.command}</code>
         </div>
       </div>
