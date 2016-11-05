@@ -35,9 +35,11 @@ const styles = {
     cursor: 'pointer',
   },
   command: {
+    margin: '5px 10px',
     display: 'block',
-    width: '100%',
+    width: 'calc(100% - 10px)',
     wordWrap: 'break-word',
+    wordBreak: 'break-all',
   }
 };
 
@@ -48,6 +50,7 @@ export default class SetEdit extends Component {
     modList: React.PropTypes.object,
     remove: React.PropTypes.func,
     update: React.PropTypes.func,
+    runMod: React.PropTypes.func,
   };
 
   update(key, value) {
@@ -110,13 +113,21 @@ export default class SetEdit extends Component {
         </div>
         <div>
           <Subheader style={{lineHeight: '30px'}}>Launch command preview</Subheader>
-          <code style={styles.command}>{command}</code>
+          <code style={styles.command}><span>{command}</span></code>
         </div>
-        <div style={{textAlign: 'right'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <RaisedButton
+            label={'Run modded ARMA3'}
+            style={{backgroundColor: 'none', margin: '5px'}}
+            labelStyle={{padding: '0 5px'}}
+            onMouseUp={this.props.runMod}
+            primary={true}
+          />
           <RaisedButton
             primary
-            label={'delete'}
+            label={'delete set'}
             style={{backgroundColor: 'none', margin: '5px'}}
+            labelStyle={{padding: '0 5px'}}
             onMouseUp={() => this.props.remove(this.props.data.get('id'))}
           />
         </div>

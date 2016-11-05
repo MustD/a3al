@@ -16,7 +16,7 @@ injectTapEventPlugin();
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import * as colors from 'material-ui/styles/colors'
-import { fade } from 'material-ui/utils/colorManipulator'
+import { fade, darken } from 'material-ui/utils/colorManipulator'
 
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
@@ -40,6 +40,18 @@ const theme = {
     clockCircleColor: (0, fade)(colors.darkBlack, 0.07),
     shadowColor: colors.fullBlack
   },
+  raisedButton: {
+    color: colors.white,
+    textColor: colors.white,
+    primaryColor: colors.grey600,
+    primaryTextColor: colors.white,
+    secondaryColor: colors.grey800,
+    secondaryTextColor: colors.white,
+    disabledColor: colors.grey800,
+    disabledTextColor: (0, fade)(colors.white, 0.3),
+    fontSize: '16px',
+    fontWeight: '500',
+  },
   textField: {
     textColor: colors.white,
     hintColor: colors.grey100,
@@ -57,6 +69,11 @@ const theme = {
     disabledColor: (0, fade)(colors.darkBlack, 0.3),
     labelColor: colors.white,
     labelDisabledColor: (0, fade)(colors.darkBlack, 0.3),
+  },
+  tabs: {
+    backgroundColor: 'rgba(100, 100, 100, 0.7)',
+    textColor: (0, fade)(colors.white, 0.7),
+    selectedTextColor: colors.white
   },
 };
 render(

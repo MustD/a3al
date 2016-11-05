@@ -11,6 +11,7 @@ const styles = {
     padding: '5px',
     color: '#FFF',
     backgroundColor: 'transparent',
+    minHeight: '300px',
   }
 };
 
@@ -24,6 +25,7 @@ export default class SetManage extends Component {
     addSet: React.PropTypes.func,
     removeSet: React.PropTypes.func,
     updateSet: React.PropTypes.func,
+    runMod: React.PropTypes.func,
   };
 
   render() {
@@ -39,6 +41,7 @@ export default class SetManage extends Component {
           data={this.props.list.get(this.props.active)}
           remove={this.props.removeSet}
           update={this.props.updateSet}
+          runMod={this.props.runMod}
         />
       </Paper>
     );

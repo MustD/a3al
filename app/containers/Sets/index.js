@@ -16,6 +16,7 @@ class Sets extends Component {
     addSet: React.PropTypes.func,
     removeSet: React.PropTypes.func,
     updateSet: React.PropTypes.func,
+    runMod: React.PropTypes.func,
   };
 
   render() {
@@ -28,6 +29,7 @@ class Sets extends Component {
         addSet={this.props.addSet}
         removeSet={this.props.removeSet}
         updateSet={this.props.updateSet}
+        runMod={this.props.runMod}
       />
     );
   }

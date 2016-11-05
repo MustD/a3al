@@ -80,7 +80,7 @@ class Main extends Component {
       >
         <Tabs>
           <Tab label="Mod sets" >
-            <Sets />
+            <Sets runMod={() => this.runMod()} />
           </Tab>
           <Tab label="Mod pool" >
             <Mods />

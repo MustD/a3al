@@ -39,7 +39,6 @@ export default class MainPage extends Component {
     save: React.PropTypes.func,
     load: React.PropTypes.func,
     run: React.PropTypes.func,
-    runMod: React.PropTypes.func,
     command: React.PropTypes.string,
   };
 
@@ -74,16 +73,6 @@ export default class MainPage extends Component {
         </div>
         <div style={styles.content}>
           {this.props.children}
-        </div>
-        <div style={styles.menu}>
-          <RaisedButton
-            label={'Run modded ARMA3'}
-            style={styles.button}
-            labelStyle={styles.btnLabel}
-            onMouseUp={this.props.runMod}
-            primary={true}
-          />
-          <code style={styles.command}>{this.props.command}</code>
         </div>
       </div>
     );
