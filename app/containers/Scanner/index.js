@@ -4,6 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ScannerActions from './actions';
+import Folder from '../../components/ArmaFolder';
+import Workshop from '../../components/WorkshopMods';
+import UserMods from '../../components/UserMods';
 
 class Scanner extends Component {
 
@@ -13,7 +16,11 @@ class Scanner extends Component {
 
   render() {
     return (
-     <div>hello scanner</div>
+     <div>
+       <Folder path={'/home/user/Arma3'}/>
+       <Workshop path={'/home/user/workshop'}/>
+       <UserMods path={'/home/user/workshop'}/>
+     </div>
     );
   }
 }
