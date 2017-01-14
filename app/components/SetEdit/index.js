@@ -82,12 +82,13 @@ export default class SetEdit extends Component {
     if (this.props.data === undefined) {
       return (
         <Paper style={styles.container} zDepth={4}>
-          <span>Add new set or choose existing one</span><br/>
-          <hr/>
-          <span>Example of command:</span><br/>
-          <code>-mod="@CBA_A3\\;@lsd_nvg\\;"</code>
-          <hr/>
-          <span>Make sure that steam launch properties are empty</span>
+          <span>Welcome to Arma3 alternative launcher</span><br/>
+          <span>Make sure that steam launch properties are empty</span><br/>
+          <span>1. Add mods in pool</span><br/>
+          <span>2. Add new set and select mods u need</span><br/>
+          <span>3. Launch Arma3 with selected set of mods. Don't forget to save.</span><br/>
+          <span>4. Next time just press load and launch Arma3 with selected set of mods.</span><br/>
+          <span>If u have any question or trouble go to https://github.com/MustD/a3al</span>
         </Paper>
       )
     }
@@ -101,6 +102,7 @@ export default class SetEdit extends Component {
         />
         <div style={styles.modList}>
           <Subheader style={{lineHeight: '30px'}}>Please choose mods for this set</Subheader>
+          {!this.props.modList.size ? <div>Your mod pool is empty! Go to MOD POOL and ADD some</div> : ''}
           {this.props.modList.toList().map((item, index) => (
             <div onClick={() => this.toggle(item.get('id'))} key={`item${index}`} style={styles.item}>
               <Checkbox

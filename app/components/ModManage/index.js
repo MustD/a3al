@@ -75,6 +75,7 @@ export default class ModManage extends Component {
           />
         </Paper>
         <Paper style={styles.modList} zDepth={4} >
+          {!this.props.list.size ? <div>Your pool is empty! Enter mod name(folder name in arma3 directory) and press ADD</div> : ''}
           {this.props.list.toList().map((item, index) =>
             <div key={`mod${index}`} style={styles.item} title={item.get('name')}>
               <span title="delete" style={{WebkitUserSelect: 'none', cursor: 'pointer'}} onClick={() => this.props.removeMod(item.get('id'))}>✖&nbsp;</span>
