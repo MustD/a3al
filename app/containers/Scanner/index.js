@@ -8,6 +8,8 @@ import Folder from '../../components/ArmaFolder';
 import Workshop from '../../components/WorkshopMods';
 import UserMods from '../../components/UserMods';
 
+import RaisedButton from 'material-ui/RaisedButton';
+
 class Scanner extends Component {
 
   static propTypes = {
@@ -20,6 +22,13 @@ class Scanner extends Component {
        <Folder path={'/home/user/Arma3'}/>
        <Workshop path={'/home/user/workshop'}/>
        <UserMods path={'/home/user/workshop'}/>
+       <div>
+         <RaisedButton
+           label={'IMPORT'}
+           onMouseUp={() => {}}
+           secondary={true}
+         />
+       </div>
      </div>
     );
   }

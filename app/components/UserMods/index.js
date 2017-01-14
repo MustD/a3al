@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { fromJS } from 'immutable';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import ToggleList from '../../components/ModToggleList';
 
 const styles = {
   container: {
@@ -10,7 +14,11 @@ const styles = {
     verticalAlign: 'top',
     width: 'calc(100% - 232px)',
     backgroundColor: 'transparent',
-  }
+  },
+  button: {
+    margin: '5px 10px 5px 0',
+    backgroundColor: 'none',
+  },
 };
 
 export default class UserMods extends Component {
@@ -20,10 +28,23 @@ export default class UserMods extends Component {
   };
 
   render() {
+    const list = fromJS([
+      {id: 1234, name: 'tmp'}, {id:125, name: 'checked'}
+    ]);
+    const toggledList = fromJS([
+      1234
+    ]);
+
     return (
       <div style={styles.container}>
-        <div>Manually downloaded mod list:</div>
-        <div>{this.props.path}</div>
+        <div>Manually downloaded mod list to import:</div>
+        <ToggleList modList={list} checkedList={toggledList}/>
+        <RaisedButton
+          label={'rescan'}
+          style={styles.button}
+          onMouseUp={() => {}}
+          secondary={true}
+        />
       </div>
     );
   }
