@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
+import ModToggleList from '../ModToggleList';
 
 const styles = {
   container: {
@@ -78,7 +79,7 @@ export default class SetEdit extends Component {
   render() {
     const name = this.props.data ? this.props.data.get('name') : '';
     const command = this.props.data ? this.props.data.get('command') : '';
-    const modList = this.props.data ? this.props.data.get('modList') : fromJS([]);
+    const checkedModList = this.props.data ? this.props.data.get('modList') : fromJS([]);
     if (this.props.data === undefined) {
       return (
         <Paper style={styles.container} zDepth={4}>
@@ -103,15 +104,7 @@ export default class SetEdit extends Component {
         <div style={styles.modList}>
           <Subheader style={{lineHeight: '30px'}}>Please choose mods for this set</Subheader>
           {!this.props.modList.size ? <div>Your mod pool is empty! Go to MOD POOL and ADD some</div> : ''}
-          {this.props.modList.toList().map((item, index) => (
-            <div onClick={() => this.toggle(item.get('id'))} key={`item${index}`} style={styles.item}>
-              <Checkbox
-                checked={modList.includes(item.get('id'))}
-                label={item.get('name')}
-                style={styles.checkbox}
-              />
-            </div>
-          ))}
+          <ModToggleList modList={this.props.modList} checkedList={checkedModList} toggle={(id) => this.toggle(id)}/>
         </div>
         <div>
           <Subheader style={{lineHeight: '30px'}}>Launch command preview</Subheader>
