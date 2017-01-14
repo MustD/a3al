@@ -9,21 +9,11 @@ import * as MainActions from './actions';
 import child_process from 'child_process';
 
 import MainPage from '../../components/MainPage';
-import Nav from '../../components/NavMenu';
 import Sets from '../Sets';
 import Mods from '../Mods';
+import Scanner from '../Scanner';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-};
 
 class Main extends Component {
 
@@ -84,6 +74,9 @@ class Main extends Component {
           </Tab>
           <Tab label="Mod pool" >
             <Mods />
+          </Tab>
+          <Tab label="Mod scanner" >
+            <Scanner />
           </Tab>
         </Tabs>
       </MainPage>
