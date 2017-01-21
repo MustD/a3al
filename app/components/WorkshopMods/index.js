@@ -24,7 +24,8 @@ const styles = {
 export default class WorkshopMods extends Component {
 
   static propTypes = {
-    path: React.PropTypes.string,
+    mods: React.PropTypes.object,
+    rescan: React.PropTypes.func,
   };
 
   render() {
@@ -42,7 +43,7 @@ export default class WorkshopMods extends Component {
         <RaisedButton
           label={'rescan'}
           style={styles.button}
-          onMouseUp={() => {}}
+          onMouseUp={() => this.props.rescan()}
           secondary={true}
         />
       </div>

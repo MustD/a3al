@@ -16,6 +16,7 @@ class Scanner extends Component {
   static propTypes = {
     setArmaFolder: React.PropTypes.func,
     armaRoot: React.PropTypes.object,
+    workshopMods: React.PropTypes.object,
   };
 
   setArmaFolder(path){
@@ -23,6 +24,11 @@ class Scanner extends Component {
     armaRoot.setPath(path);
     const isValid = armaRoot.isValid();
     this.props.setArmaFolder(path, isValid);
+  }
+
+  scanWorkshop(){
+    //@todo: implement
+    console.log('workshop scan')
   }
 
   render() {
@@ -33,7 +39,7 @@ class Scanner extends Component {
          path={this.props.armaRoot.get('path')}
          isValid={this.props.armaRoot.get('isValid')}
        />
-       <Workshop path={'/home/user/workshop'}/>
+       <Workshop mods={this.props.workshopMods} rescan={() => this.scanWorkshop()} />
        <UserMods path={'/home/user/workshop'}/>
        <div>
          <RaisedButton
@@ -50,6 +56,7 @@ class Scanner extends Component {
 function mapStateToProps(state) {
   return {
     armaRoot: state.scanner.get('armaRoot'),
+    workshopMods: state.scanner.get('workshopMods'),
   };
 }
 
