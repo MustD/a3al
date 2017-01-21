@@ -2,27 +2,25 @@
  * Created by md on 14.01.17.
  */
 
+import FolderArmaRoot from '../../api/FolderArmaRoot';
+
 import {
-  ADD_SET,
+  SET_ARMA_FOLDER,
 } from './actions';
 
-import { Record, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 
-const initialState = fromJS({});
-
-const modSet = Record({ id: '', name: '', command: '', modList: fromJS([]) });
+const initialState = fromJS({
+  armaRoot: {
+    path: (new FolderArmaRoot()).getPath(),
+    isValid: false,
+  }
+});
 
 export default function scannerReducer(state = initialState, action) {
   switch (action.type) {
-
-    case ADD_SET:
-      return state.update('sets', (map) => map.set(action.id,
-        new modSet({
-          id: action.id,
-          name: `new set ${map.size + 1}`,
-        })
-      ));
-
+    case SET_ARMA_FOLDER:
+      return state.update('armaRoot', (map) => map.set('path', action.path).set('isValid', action.isValid));
     default:
       return state;
   }

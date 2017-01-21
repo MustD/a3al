@@ -1,13 +1,8 @@
 /**
- * Created by md on 14.01.17.
+ * Scanner actions
  */
-export const ADD_SET = 'sets/add_set';
-
-
-export function addSet(id) {
-  return {
-    type: ADD_SET,
-    id,
-  };
+export const SET_ARMA_FOLDER = 'sets/set_arma_folder';
+export function setArmaFolder(path, isValid) {
+  return { type: SET_ARMA_FOLDER, path, isValid };
 }
 
