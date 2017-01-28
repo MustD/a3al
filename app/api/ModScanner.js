@@ -84,7 +84,7 @@ export default class ModScanner {
    * Mods scanner
    * @param {string} scanPath path to scan for mods
    * @param {Array} ignore array of names to ignore
-   * @return {Map} string to array: "real location" to  array: ["directory entry", "real location", "mod name if any", "meta name if any", "suggested symlink name"]
+   * @return {Map} string to array: "real location" to  array: ["directory entry, relative path", "", "real location", "mod name if any", "meta name if any", "suggested symlink name"]
    */
   static scanForMods(scanPath, ignore = []) {
     const mapMods = fromJS({}).asMutable();
@@ -104,7 +104,7 @@ export default class ModScanner {
         realBaseName = realLoc.split(/[\\/]/).pop();
       }
       if (entryStat.isDirectory()) {
-        var modEntry = [];
+        var modEntry = fromJS([]).asMutable();
         var isMod = false;
         // check if it's a mod
         var modName = this.parseFileForName(realLoc + path.sep + "mod.cpp");
@@ -142,7 +142,7 @@ export default class ModScanner {
         if (isMod) {
           linkName = this.normalizeLinkName(linkName);
 
-          modEntry.push(scanPath + path.sep + dirEntry);
+          modEntry.push(dirEntry);
           modEntry.push(realLoc);
           modEntry.push(modName);
           modEntry.push(metaName);
@@ -160,31 +160,37 @@ export default class ModScanner {
    * mods scanner
    * @param {string} armaDir directory where arma installed
    * @param {string} workshopDir workshop content directory
+   * @return {Array} of strings: use them as arma's -mod= args
    */
   static megaScan(armaDir, workshopDir) {
     const armaMods = this.scanForMods(armaDir, armaRootStandardFolders);
     const workshopMods = this.scanForMods(workshopDir, []);
+    let modNames = [];
+    console.log(armaMods);
+    for (let relPath of armaMods) {
+      modNames.push(armaMods.getIn([relPath, 0]));
+    }
 
-    for (let realPath of Object.keys(workshopMods)) {
+    for (let realPath of workshopMods) {
       console.log("Processing WS mod: " + realPath);
       if (armaMods.has(realPath)) {
-        console.log("Mod already present: " + armaMods[realPath][0] + " -> " + armaMods[realPath][1]);
+        console.log(`Not creating link: Mod already present: ${armaMods.getIn([realPath, 0])}; effectively ${armaMods[realPath][1]}`);
       } else {
         // first check if name is taken
-        if (fs.existsSync(armaDir + path.sep + workshopMods[realPath][4])) {
-          console.log("Not creating link '" + realPath + " -> " + workshopMods[realPath][4] + "': link name exists");
+        if (fs.existsSync(armaDir + path.sep + workshopMods.getIn([realPath, 4]))) {
+          console.log(`Not creating link '${realPath} -> ${workshopMods.getIn([realPath, 4])}': link name exists`);
         } else {
-          console.log("Creating symlink: " + armaDir + path.sep + workshopMods[realPath][4] + " -> " + realPath);
-          //try {
-          //	////fs.symlinkSync(workshopMods[realPath][0], armaDir + path.sep + workshopMods[realPath][4], "dir");
-          //	fs.symlinkSync(realPath, armaDir + path.sep + workshopMods[realPath][4], "dir");
-          //	console.log("Created symlink: " + armaDir + path.sep + workshopMods[realPath][4] + " -> " + realPath)
-          //} catch (e) {}
+          console.log(`Creating symlink: ${armaDir}${path.sep}${workshopMods.getIn([realPath, 4])} -> ${workshopDir}${path.sep}${workshopMods.getIn([realPath, 0])}`);
+          try {
+            fs.symlinkSync(workshopDir + path.sep + workshopMods.getIn([realPath, 0]), armaDir + path.sep + workshopMods.getIn([realPath, 4]), "dir");
+            console.log(`Created symlink: ${armaDir}${path.sep}${workshopMods.getIn([realPath, 4])} -> ${workshopDir}${path.sep}${workshopMods.getIn([realPath, 0])}`);
+            modNames.push(workshopMods.getIn([realPath, 4]));
+          } catch (e) {}
         }
       }
     }
-    //console.log(workshopMods);
+    console.log(workshopMods);
+    return modNames;
   }
-
 
 }
