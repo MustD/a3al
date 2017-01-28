@@ -9,7 +9,7 @@ import {
   SET_WORKSHOP_MOD_LIST,
 } from './actions';
 
-import { fromJS, OrderedMap } from 'immutable';
+import { Record, fromJS, OrderedMap } from 'immutable';
 
 const workshopMod = Record({ id: '', name: '', path: ''});
 

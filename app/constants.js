@@ -4,9 +4,22 @@
 
 import os  from 'os';
 
-export const armaRootStandardFolders = [
-  'Addons', 'BattlEye', 'Curator', 'Dta', 'Expansion', 'Heli', 'Kart', 'Keys', 'legal', 'Mark', 'Missions', 'MPMissions'
-];
+export const armaRootStandardFolders =
+  [
+    "Addons",
+    "BattlEye",
+    "Bonus",
+    "Curator",
+    "Dta",
+    "Expansion",
+    "Heli",
+    "Kart",
+    "Keys",
+    "MPMissions",
+    "Mark",
+    "Missions",
+    "legal"
+  ];
 
 export const steamAbsolutePath = os.homedir() + '/.local/share/Steam/';
 export const armaDefaultRootRelativePath = 'steamapps/common/Arma 3/';
