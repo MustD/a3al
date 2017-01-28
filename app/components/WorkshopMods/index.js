@@ -29,12 +29,8 @@ export default class WorkshopMods extends Component {
   };
 
   render() {
-    const list = fromJS([
-      {id: 1234, name: 'tmp'}, {id:125, name: 'checked'}
-    ]);
-    const toggledList = fromJS([
-      1234
-    ]);
+    const list = this.props.mods || fromJS({});
+    const toggledList = fromJS([]);
 
     return (
       <div style={styles.container}>

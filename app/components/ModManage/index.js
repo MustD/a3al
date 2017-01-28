@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { generateId } from '../../utils/common';
 
 const styles = {
   container: {
@@ -53,12 +54,8 @@ export default class ModManage extends Component {
     }
   }
 
-  generateId() {
-    return Math.random().toString(34).slice(2, 8);
-  }
-
   addMod(){
-    this.props.addMod(this.generateId(), this.state.name);
+    this.props.addMod(generateId(), this.state.name);
     this.setState({name: ''});
   }
 

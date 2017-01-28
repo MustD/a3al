@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { armaRootStandardFolders } from '../constants';
+import { fromJS } from 'immutable';
 
 /*
 const
@@ -82,11 +83,11 @@ export default class ModScanner {
   /**
    * Mods scanner
    * @param {string} scanPath path to scan for mods
-   * @param {array} ignore array of names to ignore
+   * @param {Array} ignore array of names to ignore
    * @return {Map} string to array: "real location" to  array: ["directory entry", "real location", "mod name if any", "meta name if any", "suggested symlink name"]
    */
-  static scanForMods(scanPath, ignore) {
-    var mapMods = new Map();
+  static scanForMods(scanPath, ignore = []) {
+    const mapMods = fromJS({}).asMutable();
     var arrEntries = fs.readdirSync(scanPath);
     var i = 0;
     for (; i < arrEntries.length; ++i) {
@@ -147,7 +148,7 @@ export default class ModScanner {
           modEntry.push(metaName);
           modEntry.push(linkName);
 
-          mapMods[realLoc] = modEntry;
+          mapMods.set(realLoc, fromJS(modEntry));
         }
       }
     }

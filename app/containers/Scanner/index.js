@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { fromJS } from 'immutable';
 
 import * as ScannerActions from './actions';
 import Folder from '../../components/ArmaFolder';
 import Workshop from '../../components/WorkshopMods';
 import UserMods from '../../components/UserMods';
 import FolderArmaRoot from '../../api/FolderArmaRoot';
+import FolderArmaWorkshop from '../../api/FolderArmaWorkshop';
 
 import RaisedButton from 'material-ui/RaisedButton';
+import ModScanner from '../../api/ModScanner';
+import { generateId } from '../../utils/common';
 
 class Scanner extends Component {
 
@@ -17,6 +21,7 @@ class Scanner extends Component {
     setArmaFolder: React.PropTypes.func,
     armaRoot: React.PropTypes.object,
     workshopMods: React.PropTypes.object,
+    setWorkshopMods: React.PropTypes.func,
   };
 
   setArmaFolder(path){
@@ -28,7 +33,15 @@ class Scanner extends Component {
 
   scanWorkshop(){
     //@todo: implement
-    console.log('workshop scan')
+    const workshopPath = new FolderArmaWorkshop();
+    workshopPath.setPathFromArma(this.props.armaRoot.get('path'));
+    const result = fromJS(ModScanner.scanForMods(workshopPath.getPath()));
+    const mods = fromJS({}).asMutable();
+    result.forEach((value) => {
+      const id = generateId();
+      mods.set(id, {id, name: value.get(4), path: value.get(0)})
+    });
+    this.props.setWorkshopMods(mods);
   }
 
   render() {
