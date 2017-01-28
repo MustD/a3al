@@ -18,7 +18,7 @@ class Scanner extends Component {
   static propTypes = {
     setArmaFolder: React.PropTypes.func,
     armaRoot: React.PropTypes.object,
-    workshopMods: React.PropTypes.object,
+    importedMods: React.PropTypes.object,
     setWorkshopMods: React.PropTypes.func,
   };
 
@@ -38,7 +38,7 @@ class Scanner extends Component {
       const id = generateId();
       mods.set(id, fromJS({id, name: value}));
     });
-    this.props.setWorkshopMods(result);
+    this.props.setWorkshopMods(mods);
   }
 
   render() {
@@ -58,7 +58,7 @@ class Scanner extends Component {
 function mapStateToProps(state) {
   return {
     armaRoot: state.scanner.get('armaRoot'),
-    workshopMods: state.scanner.get('workshopMods'),
+    importedMods: state.scanner.get('importedMods'),
   };
 }
 
