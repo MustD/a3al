@@ -40,7 +40,7 @@ export default class ModImport extends Component {
           onMouseUp={() => this.props.importMods()}
           secondary={true}
         />
-        <ToggleList modList={list} toggle={() => {}} checkedList={list.toArray().map((value) => value.get('id'))}/>
+        <ToggleList modList={list} toggle={() => {}} checkedList={list.toList().map((value) => value.get('id'))}/>
       </div>
     );
   }
