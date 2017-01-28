@@ -3,6 +3,7 @@
  */
 
 import FolderArmaRoot from '../../api/FolderArmaRoot';
+import { SET_STATE } from '../Main/actions';
 
 import {
   SET_ARMA_FOLDER,
@@ -21,6 +22,9 @@ const initialState = fromJS({
 
 export default function scannerReducer(state = initialState, action) {
   switch (action.type) {
+    case SET_STATE:
+      return fromJS(action.data.scanner);
+
     case SET_ARMA_FOLDER:
       return state.update('armaRoot', (map) => map.set('path', action.path).set('isValid', action.isValid));
     case SET_WORKSHOP_MOD_LIST: {

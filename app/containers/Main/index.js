@@ -12,7 +12,6 @@ import MainPage from '../../components/MainPage';
 import Sets from '../Sets';
 import Mods from '../Mods';
 import Scanner from '../Scanner';
-import { fromJS } from 'immutable';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 
@@ -51,13 +50,16 @@ class Main extends Component {
   }
 
   getRunString() {
-    const allMods = fromJS({mods: this.props.scannerState.get('importedMods').merge(this.props.modsState.get('mods'))});
+    const allMods = this.props.scannerState.get('importedMods').merge(this.props.modsState.get('mods'));
     const active = this.props.setsState.get('active');
     let command = 'steam -applaunch 107410';
     if(this.props.setsState.hasIn(['sets', active, 'modList']) && this.props.setsState.getIn(['sets', active, 'modList']).size){
       command += ' -mod="';
-      this.props.setsState.getIn(['sets', active, 'modList'])
-        .forEach(item => command += `${allMods.getIn(['mods', item, 'name'])}\\\\;`);
+      this.props.setsState.getIn(['sets', active, 'modList']).forEach(item =>
+      {
+        const name = allMods.getIn([item, 'name']) || '';
+        command += `${name}\\\\;`
+      });
       command += '"'
     }
     return command;
