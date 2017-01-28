@@ -36,7 +36,7 @@ class Scanner extends Component {
     const mods = fromJS({}).asMutable();
     result.forEach((value) => {
       const id = generateId();
-      mods.push(id, fromJS({id, name: value}));
+      mods.set(id, fromJS({id, name: value}));
     });
     this.props.setWorkshopMods(result);
   }
