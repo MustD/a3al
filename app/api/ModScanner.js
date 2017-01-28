@@ -163,18 +163,18 @@ export default class ModScanner {
    * @return {Array} of strings: use them as arma's -mod= args
    */
   static megaScan(armaDir, workshopDir) {
-    const armaMods = this.scanForMods(armaDir, armaRootStandardFolders);
-    const workshopMods = this.scanForMods(workshopDir, []);
-    let modNames = [];
-    console.log(armaMods);
-    for (let relPath of armaMods) {
-      modNames.push(armaMods.getIn([relPath, 0]));
-    }
+    const modNames = [];
 
-    for (let realPath of workshopMods) {
+    const armaMods = this.scanForMods(armaDir, armaRootStandardFolders);
+    armaMods.forEach((value, realPath) => {
+      modNames.push(armaMods.getIn([realPath, 0]))
+    });
+
+    const workshopMods = this.scanForMods(workshopDir, []);
+    workshopMods.forEach((value, realPath) => {
       console.log("Processing WS mod: " + realPath);
       if (armaMods.has(realPath)) {
-        console.log(`Not creating link: Mod already present: ${armaMods.getIn([realPath, 0])}; effectively ${armaMods[realPath][1]}`);
+        console.log(`Not creating link: Mod already present: ${armaMods.getIn([realPath, 0])}; effectively ${armaMods.getIn([realPath, 1])}`);
       } else {
         // first check if name is taken
         if (fs.existsSync(armaDir + path.sep + workshopMods.getIn([realPath, 4]))) {
@@ -188,8 +188,7 @@ export default class ModScanner {
           } catch (e) {}
         }
       }
-    }
-    console.log(workshopMods);
+    });
     return modNames;
   }
 
