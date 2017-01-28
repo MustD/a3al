@@ -25,11 +25,11 @@ export default class ModScanner {
    * @return {string} mod name
    */
   parseFileForName(flnm, encoding = "utf8") {
-    var nmRegEx = /^\s*name\s*=\s*\"(.+)\"\s*;\s*$/m;
-    var unesc = /\\(.)/g;
+    const nmRegEx = /^\s*name\s*=\s*\"(.+)\"\s*;\s*$/m;
+    const unesc = /\\(.)/g;
     try {
-      var fileContents = fs.readFileSync(flnm, encoding);
-      var nmMatches = fileContents.match(nmRegEx);
+      const fileContents = fs.readFileSync(flnm, encoding);
+      const nmMatches = fileContents.match(nmRegEx);
       if (nmMatches && nmMatches.length > 1) {
         return nmMatches[1].replace(unesc, "$1");
       }
