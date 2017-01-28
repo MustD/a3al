@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { fromJS } from 'immutable';
 
-import RaisedButton from 'material-ui/RaisedButton';
 import ToggleList from '../../components/ModToggleList';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   container: {
@@ -21,30 +21,26 @@ const styles = {
   },
 };
 
-export default class UserMods extends Component {
+export default class ModImport extends Component {
 
   static propTypes = {
-    path: React.PropTypes.string,
+    list: React.PropTypes.object,
+    importMods: React.PropTypes.func,
   };
 
   render() {
-    const list = fromJS([
-      {id: 1234, name: 'tmp'}, {id:125, name: 'checked'}
-    ]);
-    const toggledList = fromJS([
-      1234
-    ]);
+    const list = this.props.list || fromJS({});
 
     return (
       <div style={styles.container}>
-        <div>Manually downloaded mod list to import:</div>
-        <ToggleList modList={list} checkedList={toggledList}/>
+        <div>Press import button to attempt to import mod to pool, be sure that arma folder is valid</div>
         <RaisedButton
-          label={'rescan'}
+          label={'import'}
           style={styles.button}
-          onMouseUp={() => {}}
+          onMouseUp={() => this.props.importMods()}
           secondary={true}
         />
+        <ToggleList modList={list} toggle={() => {}} checkedList={list.toArray().map((value) => value.get('id'))}/>
       </div>
     );
   }

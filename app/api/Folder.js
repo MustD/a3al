@@ -32,8 +32,4 @@ export default class Folder {
     }
     return true;
   }
-
-  getContent() {
-    return fs.readdirSync(this.path);
-  }
 }
