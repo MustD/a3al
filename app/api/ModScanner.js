@@ -24,7 +24,7 @@ export default class ModScanner {
    * @param {string} encoding name string (or null if not found or in case of error)
    * @return {string} mod name
    */
-  parseFileForName(flnm, encoding = "utf8") {
+  static parseFileForName(flnm, encoding = "utf8") {
     const nmRegEx = /^\s*name\s*=\s*\"(.+)\"\s*;\s*$/m;
     const unesc = /\\(.)/g;
     try {
@@ -46,7 +46,7 @@ export default class ModScanner {
    * @return {boolean}
    * !side effect: symlinks dereferenced
    */
-  checkDirAccessible(drnm, mode = fs.constants.R_OK | fs.constants.X_OK, deref = true) {
+  static checkDirAccessible(drnm, mode = fs.constants.R_OK | fs.constants.X_OK, deref = true) {
     try {
       var subStat;
       if (deref) {
@@ -63,7 +63,7 @@ export default class ModScanner {
     return false;
   }
 
-  normalizeLinkName(lnkName) {
+  static normalizeLinkName(lnkName) {
     let replLink = /[\s():]+/g;
     let linkName = lnkName.replace(replLink, "_");
     replLink = /_+$/g;
@@ -75,7 +75,7 @@ export default class ModScanner {
   }
 
 
-  isAllNumbers(str) {
+  static isAllNumbers(str) {
     return str.search(/^[0-9]+$/) != -1;
   }
 
@@ -85,7 +85,7 @@ export default class ModScanner {
    * @param {array} ignore array of names to ignore
    * @return {Map} string to array: "real location" to  array: ["directory entry", "real location", "mod name if any", "meta name if any", "suggested symlink name"]
    */
-  scanForMods(scanPath, ignore) {
+  static scanForMods(scanPath, ignore) {
     var mapMods = new Map();
     var arrEntries = fs.readdirSync(scanPath);
     var i = 0;
@@ -160,7 +160,7 @@ export default class ModScanner {
    * @param {string} armaDir directory where arma installed
    * @param {string} workshopDir workshop content directory
    */
-  megaScan(armaDir, workshopDir) {
+  static megaScan(armaDir, workshopDir) {
     const armaMods = this.scanForMods(armaDir, armaRootStandardFolders);
     const workshopMods = this.scanForMods(workshopDir, []);
 
