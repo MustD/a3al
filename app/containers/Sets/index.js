@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { fromJS } from 'immutable';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -12,6 +13,7 @@ class Sets extends Component {
   static propTypes = {
     setsState: React.PropTypes.object,
     modsState: React.PropTypes.object,
+    scannerState: React.PropTypes.object,
     activate: React.PropTypes.func,
     addSet: React.PropTypes.func,
     removeSet: React.PropTypes.func,
@@ -20,10 +22,12 @@ class Sets extends Component {
   };
 
   render() {
+    const allMods = this.props.scannerState.get('importedMods').merge(this.props.modsState.get('mods'));
+
     return (
       <SetManage
         list={this.props.setsState.get('sets')}
-        modList={this.props.modsState.get('mods')}
+        modList={allMods}
         active={this.props.setsState.get('active')}
         activate={this.props.activate}
         addSet={this.props.addSet}
@@ -39,6 +43,7 @@ function mapStateToProps(state) {
   return {
     setsState: state.sets,
     modsState: state.mods,
+    scannerState: state.scanner,
   };
 }
 
