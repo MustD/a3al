@@ -90,7 +90,7 @@ export default class SetEdit extends Component {
         <Paper style={styles.container} zDepth={4}>
           <span>Welcome to Arma3 alternative launcher</span><br/>
           <span>Make sure that steam launch properties are empty</span><br/>
-          <span>1. Add mods in pool</span><br/>
+          <span>1. Add mods in MOD POOL or scan for installed mods in MOD SCANNER</span><br/>
           <span>2. Add new set and select mods u need</span><br/>
           <span>3. Launch Arma3 with selected set of mods. Don't forget to save.</span><br/>
           <span>4. Next time just press load and launch Arma3 with selected set of mods.</span><br/>

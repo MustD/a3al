@@ -6,7 +6,7 @@ import fs from 'fs';
 export default class Folder {
 
   constructor(path = '') {
-    this.path = path;
+    this.path = fs.realpathSync(path);
   }
 
   isValid() {
@@ -14,7 +14,7 @@ export default class Folder {
   }
 
   setPath(path) {
-    this.path = path;
+    this.path = fs.realpathSync(path);
   }
 
   getPath() {

@@ -12,6 +12,6 @@ export default class FolderArmaWorkshop extends Folder {
   }
 
   setPathFromArma(armaPath) {
-    this.path = armaPath + workshopRelativeFromArmaPath;
+    super.setPath(armaPath + workshopRelativeFromArmaPath);
   }
 }

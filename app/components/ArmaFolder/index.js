@@ -34,6 +34,12 @@ export default class ArmaFolder extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.state.path !== nextProps.path){
+      this.setState({path: nextProps.path})
+    }
+  }
+
   render() {
     const path = this.state.path;
     return (

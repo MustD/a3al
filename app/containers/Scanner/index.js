@@ -31,7 +31,7 @@ class Scanner extends Component {
 
   scanAndImport(){
     const workshopPath = new FolderArmaWorkshop();
-    workshopPath.setPathFromArma(this.props.armaRoot.get('path'));
+    workshopPath.setPathFromArma(this.props.armaRoot.get('path') + '/');
     const result = fromJS(ModScanner.megaScan(this.props.armaRoot.get('path'), workshopPath.getPath()));
     const mods = fromJS({}).asMutable();
     result.forEach((value) => {
