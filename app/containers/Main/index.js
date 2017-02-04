@@ -58,7 +58,9 @@ class Main extends Component {
       this.props.setsState.getIn(['sets', active, 'modList']).forEach(item =>
       {
         const name = allMods.getIn([item, 'name']) || '';
-        command += `${name}\\\\;`
+        if(name){
+          command += `${name}\\\\;`
+        }
       });
       command += '"'
     }

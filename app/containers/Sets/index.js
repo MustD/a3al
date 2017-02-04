@@ -21,12 +21,24 @@ class Sets extends Component {
     runMod: React.PropTypes.func,
   };
 
+  filteredSets(){
+    const allMods = this.props.scannerState.get('importedMods').merge(this.props.modsState.get('mods'));
+    const allModsList = allMods.toList().map(item => item.get('id'));
+
+    const newSets = this.props.setsState.get('sets').asMutable();
+    this.props.setsState.get('sets').forEach((value, key) => {
+      newSets.updateIn([key, 'modList'], (list) => list.filter(id => allModsList.contains(id)))
+    });
+
+    return newSets.asImmutable();
+  }
+
   render() {
     const allMods = this.props.scannerState.get('importedMods').merge(this.props.modsState.get('mods'));
 
     return (
       <SetManage
-        list={this.props.setsState.get('sets')}
+        list={this.filteredSets()}
         modList={allMods}
         active={this.props.setsState.get('active')}
         activate={this.props.activate}

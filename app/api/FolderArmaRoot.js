@@ -10,4 +10,9 @@ export default class FolderArmaRoot extends Folder {
     super(steamAbsolutePath + armaDefaultRootRelativePath);
   }
 
+  checkFolder() {
+    return super.checkFolder();
+    // todo: add .exe validation
+  }
+
 }

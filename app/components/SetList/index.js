@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+import { generateId } from '../../utils/common';
 
 const styles = {
   container: {
@@ -31,16 +32,14 @@ export default class SetList extends Component {
     list: React.PropTypes.object,
     activate: React.PropTypes.func,
     add: React.PropTypes.func,
+    active: React.PropTypes.string,
   };
 
-  generateId() {
-    return Math.random().toString(34).slice(2, 8);
-  }
 
   render() {
     return (
       <Paper style={styles.container} zDepth={4} >
-        <RaisedButton primary label={'ADD SET'} style={styles.item} onMouseUp={() => this.props.add(this.generateId())} />
+        <RaisedButton primary label={'ADD SET'} style={styles.item} onMouseUp={() => this.props.add(generateId())} />
         {this.props.list.toList().map((item, key) => (
           <RaisedButton
             key={`set${key}`}
@@ -48,7 +47,8 @@ export default class SetList extends Component {
             title={item.get('name')}
             onMouseUp={() => this.props.activate(item.get('id'))}
             label={item.get('name') || 'unnamed'}
-            secondary
+            secondary={this.props.active !== item.get('id')}
+            primary={this.props.active === item.get('id')}
           />
         ))}
       </Paper>

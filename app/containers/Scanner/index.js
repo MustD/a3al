@@ -38,7 +38,7 @@ class Scanner extends Component {
       const id = generateId();
       mods.set(id, fromJS({id, name: value}));
     });
-    this.props.setWorkshopMods(mods);
+    this.props.setWorkshopMods(mods.asImmutable());
   }
 
   render() {

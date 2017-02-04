@@ -34,6 +34,7 @@ export default class SetManage extends Component {
         <SetList
           list={this.props.list}
           activate={(id) => this.props.activate(id)}
+          active={this.props.active}
           add={this.props.addSet}
         />
         <SetEdit

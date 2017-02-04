@@ -67,9 +67,14 @@ export default class SetEdit extends Component {
     }
 
     let command = '';
-    if(list.size){
+    if (list.size) {
       command += ' -mod="';
-      list.forEach(item => command += `${this.props.modList.getIn([item, 'name']) || ''}\\\\;`);
+      list.forEach(item => {
+        const name = this.props.modList.getIn([item, 'name']) || '';
+        if (name) {
+          command += `${name}\\\\;`
+        }
+      });
       command += '"'
     }
 
