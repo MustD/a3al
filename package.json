@@ -1,7 +1,7 @@
 {
   "name": "a3al",
   "productName": "A3AL",
-  "version": "0.1.0",
+  "version": "1.0.0-RC1",
   "description": "ARMA3 alternative launcher",
   "main": "main.js",
   "scripts": {

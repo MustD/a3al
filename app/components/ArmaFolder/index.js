@@ -16,7 +16,12 @@ const styles = {
   button: {
     margin: '5px 10px 5px 0',
     backgroundColor: 'none',
+    display: 'inline-block',
   },
+  validation: {
+    display: 'inline-block',
+    margin: '5px',
+  }
 };
 
 export default class ArmaFolder extends Component {
@@ -56,7 +61,9 @@ export default class ArmaFolder extends Component {
           onMouseUp={() => this.props.setPath(this.state.path)}
           secondary={true}
         />
-        <div style={{margin: 5}}>Valid: {this.props.isValid ? 'YES': 'NO'}</div>
+        <div style={styles.validation}>
+          Status: {this.props.isValid ? (<span style={{color: 'green'}}>Valid</span>): (<span style={{color: 'red'}}>Invalid</span>)}
+        </div>
       </div>
     );
   }

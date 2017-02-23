@@ -12,6 +12,7 @@ import FolderArmaWorkshop from '../../api/FolderArmaWorkshop';
 
 import ModScanner from '../../api/ModScanner';
 import { generateId } from '../../utils/common';
+import Logger from '../Logger';
 
 class Scanner extends Component {
 
@@ -20,11 +21,13 @@ class Scanner extends Component {
     armaRoot: React.PropTypes.object,
     importedMods: React.PropTypes.object,
     setWorkshopMods: React.PropTypes.func,
+    logMessage: React.PropTypes.func,
   };
 
   setArmaFolder(path){
-    const armaRoot = new FolderArmaRoot(path);
+    const armaRoot = new FolderArmaRoot();
     armaRoot.setPath(path);
+    armaRoot.setLogger((m) => this.props.logMessage(m));
     const isValid = armaRoot.isValid();
     this.props.setArmaFolder(path, isValid);
   }
@@ -32,13 +35,18 @@ class Scanner extends Component {
   scanAndImport(){
     const workshopPath = new FolderArmaWorkshop();
     workshopPath.setPathFromArma(this.props.armaRoot.get('path') + '/');
-    const result = fromJS(ModScanner.megaScan(this.props.armaRoot.get('path'), workshopPath.getPath()));
-    const mods = fromJS({}).asMutable();
-    result.forEach((value) => {
-      const id = generateId();
-      mods.set(id, fromJS({id, name: value}));
-    });
-    this.props.setWorkshopMods(mods.asImmutable());
+    workshopPath.setLogger((m) => this.props.logMessage(m));
+    try {
+      const result = fromJS(ModScanner.megaScan(this.props.armaRoot.get('path'), workshopPath.getPath(), (m) => this.props.logMessage(m)));
+      const mods = fromJS({}).asMutable();
+      result.forEach((value) => {
+        const id = generateId();
+        mods.set(id, fromJS({id, name: value}));
+      });
+      this.props.setWorkshopMods(mods.asImmutable());
+    } catch (e) {
+      this.props.logMessage(e.message);
+    }
   }
 
   render() {
@@ -50,6 +58,7 @@ class Scanner extends Component {
          isValid={this.props.armaRoot.get('isValid')}
        />
        <ModImport importMods={() => this.scanAndImport()} list={this.props.importedMods} />
+       <Logger scope={ScannerActions.LOG_SCOPE}/>
      </div>
     );
   }

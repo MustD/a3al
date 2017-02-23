@@ -160,9 +160,10 @@ export default class ModScanner {
    * mods scanner
    * @param {string} armaDir directory where arma installed
    * @param {string} workshopDir workshop content directory
+   * @param {function} logger custom log tool
    * @return {Array} of strings: use them as arma's -mod= args
    */
-  static megaScan(armaDir, workshopDir) {
+  static megaScan(armaDir, workshopDir, logger = (m) => console.warn(m)) {
     const modNames = [];
 
     const armaMods = this.scanForMods(armaDir, armaRootStandardFolders);
@@ -172,18 +173,18 @@ export default class ModScanner {
 
     const workshopMods = this.scanForMods(workshopDir, []);
     workshopMods.forEach((value, realPath) => {
-      console.log("Processing WS mod: " + realPath);
+      logger("Processing WS mod: " + realPath);
       if (armaMods.has(realPath)) {
-        console.log(`Not creating link: Mod already present: ${armaMods.getIn([realPath, 0])}; effectively ${armaMods.getIn([realPath, 1])}`);
+        logger(`Not creating link: Mod already present: ${armaMods.getIn([realPath, 0])}; effectively ${armaMods.getIn([realPath, 1])}`);
       } else {
         // first check if name is taken
         if (fs.existsSync(armaDir + path.sep + workshopMods.getIn([realPath, 4]))) {
-          console.log(`Not creating link '${realPath} -> ${workshopMods.getIn([realPath, 4])}': link name exists`);
+          logger(`Not creating link '${realPath} -> ${workshopMods.getIn([realPath, 4])}': link name exists`);
         } else {
-          console.log(`Creating symlink: ${armaDir}${path.sep}${workshopMods.getIn([realPath, 4])} -> ${workshopDir}${path.sep}${workshopMods.getIn([realPath, 0])}`);
+          logger(`Creating symlink: ${armaDir}${path.sep}${workshopMods.getIn([realPath, 4])} -> ${workshopDir}${path.sep}${workshopMods.getIn([realPath, 0])}`);
           try {
             fs.symlinkSync(workshopDir + path.sep + workshopMods.getIn([realPath, 0]), armaDir + path.sep + workshopMods.getIn([realPath, 4]), "dir");
-            console.log(`Created symlink: ${armaDir}${path.sep}${workshopMods.getIn([realPath, 4])} -> ${workshopDir}${path.sep}${workshopMods.getIn([realPath, 0])}`);
+            logger(`Created symlink: ${armaDir}${path.sep}${workshopMods.getIn([realPath, 4])} -> ${workshopDir}${path.sep}${workshopMods.getIn([realPath, 0])}`);
             modNames.push(workshopMods.getIn([realPath, 4]));
           } catch (e) {}
         }

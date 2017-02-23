@@ -14,7 +14,7 @@ import { fromJS, OrderedMap } from 'immutable';
 
 const initialState = fromJS({
   armaRoot: {
-    path: (new FolderArmaRoot()).getPath(),
+    path: (new FolderArmaRoot()).path,
     isValid: false,
   },
   importedMods: new OrderedMap(),
